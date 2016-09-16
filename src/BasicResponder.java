@@ -20,10 +20,12 @@ public class BasicResponder implements Responder {
         keywords = new ArrayList<>();
         responses = new ArrayList<>();
         try {
-            keywords.addAll(readLinesFromFile(pathToKeywords).stream()
-                    .map(s -> s.split(" "))
-                    .map(Arrays::asList)
-                    .collect(Collectors.toList()));
+            if (pathToResponses != null) {
+                keywords.addAll(readLinesFromFile(pathToKeywords).stream()
+                        .map(s -> s.split(" "))
+                        .map(Arrays::asList)
+                        .collect(Collectors.toList()));
+            }
             responses.addAll(readLinesFromFile(pathToResponses));
         } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
