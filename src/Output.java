@@ -67,7 +67,7 @@ public class Output {
 
         if(finalResponse[1] != null)
             try {
-                sleep(3);
+                sleep(2500);
                 System.out.println(finalResponse[1] + "*");
             } catch (InterruptedException e) {
                 e.printStackTrace();
