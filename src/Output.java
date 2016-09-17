@@ -14,7 +14,7 @@ public class Output {
         String[] words = givenResponse.split(" ");
 
         Random rand = ThreadLocalRandom.current();
-        double errorChance = 0.1;
+        double errorChance = 0.15;
         int index = -1;
 
         double mistake = rand.nextDouble();
@@ -32,6 +32,7 @@ public class Output {
             if(i == index)
             {
                 typoStr += " " + typoWord;
+
             }
             else
             {
@@ -39,29 +40,43 @@ public class Output {
             }
         }
 
-        output[2] = words[index];
-        output[1] = typoStr;
+        output[0] = typoStr;
+
+        if(index > -1)
+        {
+            output[1] = words[index];
+        }
+        else
+        {
+            output[1] = null;
+        }
 
         return output;
     }
 
     protected static String wordTypo(String word)
     {
-        return word.replaceAll( "([\\w'!.\\-]+)([\\w'!.\\-])([\\w'!.\\-])", "\\1\\3\\2");
+        return word.replaceAll( "([\\w'!.\\-]+)([\\w'!.\\-])([\\w'!.\\-])", "$1$3$2");
     }
 
     public static void printResponse(String responseStr)
     {
         String[] finalResponse = response(responseStr);
 
-        System.out.println(finalResponse[0]);
-        if(!finalResponse[1].isEmpty())
+        System.out.println(finalResponse[0].replaceAll("^ ",""));
+
+        if(finalResponse[1] != null)
             try {
                 sleep(3);
-                System.out.println(finalResponse[1]);
+                System.out.println(finalResponse[1] + "*");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+    }
+
+    public static void main(String[] args)
+    {
+        printResponse("The quick brown fox jumped over the fence.");
     }
 
 }
