@@ -21,6 +21,8 @@ public class Output {
         if(mistake < errorChance)
         {
             index = rand.nextInt(words.length);
+            //System.out.println("Typo");
+            //index = 8;
         }
 
         String typoWord = "";
@@ -42,7 +44,11 @@ public class Output {
 
         output[0] = typoStr;
 
-        if(index > -1)
+        if(index > -1 && words[index].replaceAll("^ ", "").equals(typoWord.replaceAll("^ ", "")))
+        {
+            output[1] = null;
+        }
+        else if(index > -1 && !(words[index].replaceAll("^ ", "").equals(typoWord.replaceAll("^ ", ""))))
         {
             output[1] = words[index];
         }
@@ -76,7 +82,7 @@ public class Output {
 
     public static void main(String[] args)
     {
-        printResponse("The quick brown fox jumped over the fence.");
+        printResponse("The quick brown fox jumped over the fence 1000 times.");
     }
 
 }
