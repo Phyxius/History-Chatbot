@@ -4715,8 +4715,8 @@ public class Wiki implements Serializable
         List<String[]> results = new ArrayList<>(5000);
 
         // fetch and iterate through the search results
-        while (!done)
-        {
+        //while (!done)
+        //{
             String line = fetch(url.toString() + results.size(), "search");
 
             // if this is the last page of results then there is no sroffset parameter
@@ -4738,7 +4738,7 @@ public class Wiki implements Serializable
                 result[2] = parseAttribute(line, "snippet", x);
                 results.add(result);
             }
-        }
+        //}
         log(Level.INFO, "search", "Successfully searched for string \"" + search + "\" (" + results.size() + " items found)");
         return results.toArray(new String[0][0]);
     }
