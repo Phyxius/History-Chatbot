@@ -12,12 +12,13 @@ import java.util.regex.Pattern;
 public class WikiKnowledge {
     private static final Wiki wiki;
     private static final String INFO_BOX_FLAG_TEXT = "{{Infobox military conflict";
+    private static final Pattern REF_STRIP_PATTERN = Pattern.compile("<ref>.+</ref>"); //strips out ref tags that may throw off matching
     private static final Pattern BATTLE_KILLED_PATTERN =
             Pattern.compile("((killed|dead): (?<count1>[0-9,]+))|((?<count2>[0-9,]+) (\\w+)?(dead|killed))");
     private static final Pattern BATTLE_LOCATION_PATTERN =
             Pattern.compile("\\|\\s*place\\s*=\\s*?(?<location>[\\w,' ]+)?");
     private static final Pattern BATTLE_DATE_PATTERN =
-            Pattern.compile("\\|\\s*date\\s*=\\s*.*?(?<month>January|February|March|April|May|June|July|August|September|October|November|December).+?(?<year>\\d{4})");
+            Pattern.compile("\\|\\s*date\\s*=\\s*.*?(?<month>January|February|March|April|May|June|July|August|September|October|November|December).+?(?<year>\\d{3,4}( ?BC(E?))?)");
     private static final String[] killedPatternCountGroups = {"count1", "count2"};
 
     static {
@@ -30,7 +31,7 @@ public class WikiKnowledge {
             return Optional.empty();
         Optional<String> infoBoxText = extractBattleInfoBox(battleName);
         if (!infoBoxText.isPresent()) return Optional.empty();
-
+        infoBoxText = Optional.of(REF_STRIP_PATTERN.matcher(infoBoxText.get()).replaceAll(""));
         final Matcher matcher = BATTLE_KILLED_PATTERN.matcher(infoBoxText.get());
         int totalKilled = 0;
         while (matcher.find()) {
@@ -40,6 +41,7 @@ public class WikiKnowledge {
                     totalKilled += Integer.parseInt(group.replace(",", ""));
             }
         }
+        if (totalKilled < 1) return Optional.empty();
         return Optional.of(roundNumberString("" + totalKilled));
     }
 
@@ -48,6 +50,7 @@ public class WikiKnowledge {
             return Optional.empty();
         Optional<String> infoBoxText = extractBattleInfoBox(battleName);
         if (!infoBoxText.isPresent()) return Optional.empty();
+        infoBoxText = Optional.of(REF_STRIP_PATTERN.matcher(infoBoxText.get()).replaceAll(""));
         Matcher matcher = BATTLE_LOCATION_PATTERN.matcher(infoBoxText.get().replaceAll("[\\[\\]]", ""));
         if (!matcher.find()) return Optional.empty();
         String location = matcher.group("location");
@@ -60,6 +63,7 @@ public class WikiKnowledge {
             return Optional.empty();
         Optional<String> infoBoxText = extractBattleInfoBox(battleName);
         if (!infoBoxText.isPresent()) return Optional.empty();
+        infoBoxText = Optional.of(REF_STRIP_PATTERN.matcher(infoBoxText.get()).replaceAll(""));
         Matcher matcher = BATTLE_DATE_PATTERN.matcher(infoBoxText.get());
         if (!matcher.find()) return Optional.empty();
         if (matcher.group("year") == null || matcher.group("year").equals(""))
@@ -106,6 +110,7 @@ public class WikiKnowledge {
     }
 
     public static String roundNumberString(String numberString) {
-        return numberString.substring(0, 1) + new String(new char[numberString.length() - 1]).replaceAll("\0", "0");
+        return numberString.substring(0, 1) + new String( //one liner way of generating a string with n zeroes, because Java
+                new char[numberString.length() - 1]).replaceAll("\0", "0");
     }
 }
