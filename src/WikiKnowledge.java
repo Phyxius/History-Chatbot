@@ -1,6 +1,7 @@
 import org.wikipedia.Wiki;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
@@ -14,7 +15,10 @@ public class WikiKnowledge {
     private static final String BATTLE_INFO_BOX_FLAG_TEXT = "{{Infobox military conflict";
     private static final String PERSON_INFO_BOX_FLAG_TEXT = "{{Infobox"; //because there are many different variants for people
     private static final Pattern REF_STRIP_PATTERN = Pattern.compile("<ref>.+</ref>|<ref name=.+/>"); //strips out ref tags that may throw off matching
-    private static final Pattern LINK_STRIP_PATTERN = Pattern.compile("\\[{2}(.+?\\|)?(?<text>.+?)\\]{2}");
+    private static final Pattern[] LINK_STRIP_PATTERNS = {
+            Pattern.compile("\\[{2}(?<text>[^|]+?)\\]{2}"),
+            Pattern.compile("\\[{2}(.+?\\|)(?<text>.+?)\\]{2}")
+    };
     private static final Pattern COMMENT_STRIP_PATTERN = Pattern.compile("<!--.+-->");
     private static final Pattern BATTLE_KILLED_PATTERN =
             Pattern.compile("((killed|dead): (?<count1>[0-9,]+))|((?<count2>[0-9,]+) (\\w+)?(dead|killed))");
@@ -28,6 +32,9 @@ public class WikiKnowledge {
     private static final String[] PERSON_BIRTHDATE_GROUPS = {"birthdate1", "birthdate2"};
     private static final Pattern PERSON_DEATHHDATE_PATTERN = Pattern.compile("\\|\\s*death_date\\s*=\\s*.*?((?<deathdate1>\\d+s? BC(E)?)|.+?(?<deathdate2>\\d{4}s?))");
     private static final String[] PERSON_DEATHDATE_GROUPS = {"deathdate1", "deathdate2"};
+    private static final Pattern PERSON_BIRTHPLACE_PATTERN = Pattern.compile("\\|\\s*birth_place\\s*=\\s*(?<birthplace>.+)");
+    private static final Pattern PERSON_DEATHPLACE_PATTERN = Pattern.compile("\\|\\s*death_place\\s*=\\s*(?<deathplace>.+)");
+    public static final int PLACE_NAME_SPECIFICITY = 2;
 
     static {
         wiki = new Wiki("en.wikipedia.org");
@@ -92,15 +99,27 @@ public class WikiKnowledge {
 
     public static Optional<String> getPersonBirthDate(String personName, int chanceOfNotKnowing)
     {
-        return getPersonDate(personName, chanceOfNotKnowing, PERSON_BIRTHDATE_PATTERN, PERSON_BIRTHDATE_GROUPS);
+        return getPersonInfo(personName, chanceOfNotKnowing, PERSON_BIRTHDATE_PATTERN, PERSON_BIRTHDATE_GROUPS);
     }
 
     public static Optional<String> getPersonDeathDate(String personName, int chanceOfNotKnowing)
     {
-        return getPersonDate(personName, chanceOfNotKnowing, PERSON_DEATHHDATE_PATTERN, PERSON_DEATHDATE_GROUPS);
+        return getPersonInfo(personName, chanceOfNotKnowing, PERSON_DEATHHDATE_PATTERN, PERSON_DEATHDATE_GROUPS);
     }
 
-    private static Optional<String> getPersonDate(String personName, int chanceOfNotKnowing, Pattern findPattern, String[] findPatternGroups)
+    public static Optional<String> getPersonBirthPlace(String personName, int chanceOfNotKnowing)
+    {
+        return getPersonInfo(personName, chanceOfNotKnowing, PERSON_BIRTHPLACE_PATTERN, "birthplace")
+                .map(s -> roundPlaceName(s, PLACE_NAME_SPECIFICITY));
+    }
+
+    public static Optional<String> getPersonDeathPlace(String personName, int chanceOfNotKnowing)
+    {
+        return getPersonInfo(personName, chanceOfNotKnowing, PERSON_DEATHPLACE_PATTERN, "deathplace")
+                .map(s -> roundPlaceName(s, PLACE_NAME_SPECIFICITY));
+    }
+
+    private static Optional<String> getPersonInfo(String personName, int chanceOfNotKnowing, Pattern findPattern, String... findPatternGroups)
     {
         if (chanceOfNotKnowing > 0 && !KnowledgeChance.doesKnowAbout(personName, chanceOfNotKnowing))
             return Optional.empty();
@@ -174,10 +193,21 @@ public class WikiKnowledge {
                 new char[numberString.length() - 1]).replaceAll("\0", "0");
     }
 
+    public static String roundPlaceName(String placeName, int specificity)
+    {
+        String[] placeNames = placeName.split(", ");
+        if (placeNames.length <= specificity) return placeName;
+        String[] newPlaceNames = Arrays.copyOfRange(placeNames, placeNames.length - specificity, placeNames.length);
+        return String.join(", ", (CharSequence[]) newPlaceNames);
+    }
+
     private static String stripMarkup(String text)
     {
         text = REF_STRIP_PATTERN.matcher(text).replaceAll("");
-        text = LINK_STRIP_PATTERN.matcher(text).replaceAll("${text}");
+        for(Pattern p: LINK_STRIP_PATTERNS)
+        {
+            text = p.matcher(text).replaceAll("${text}");
+        }
         text = COMMENT_STRIP_PATTERN.matcher(text).replaceAll("");
         return text;
     }
