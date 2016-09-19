@@ -10,6 +10,17 @@ public class Chatbot implements Responder{
     public final List<Responder> responders;
     public final Responder defaultResponder;
     public final double confidenceThreshold;
+
+    /**
+     * Constructs a new chatbot with the given parameters
+     * @param defaultResponder the default responder that will be used if the
+     *                         chatbot is asked to respond to a sentence
+     *                         where none of its responders report confidence
+     *                         greater than the confidence threshold
+     * @param confidenceThreshold the confidence threshold below which the default
+     *                            responder will be used
+     * @param responders the list of responders that the chatbot will draw from
+     */
     public Chatbot(Responder defaultResponder, double confidenceThreshold, Responder... responders)
     {
         this.responders = new ArrayList<>(Arrays.asList(responders));
