@@ -44,7 +44,7 @@ public class BasicResponder implements Responder {
 
     @Override
     public double getResponseConfidence(String sentence) {
-        double maxConfidence = -Double.MIN_VALUE;
+        double maxConfidence = Double.MIN_VALUE;
         for (List<String> keywordList : keywords)
         {
             int foundWords = 0;
