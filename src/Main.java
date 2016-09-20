@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args)
     {
-        Chatbot chatbot = new Chatbot(new BasicResponder(null, "responses/defaultResponses.txt"), .5,
+        Chatbot chatbot = new Chatbot(new BasicResponder(null, "responses/subjectChange.txt"), .5,
                 new BirthDate("keywords/birthDate.txt", "responses/defaultResponses.txt"),
                 new BirthLocation("keywords/birthLocation.txt", "responses/defaultResponses.txt"),
                 new CasualtiesBattle("keywords/casualtiesBattle.txt", "responses/defaultResponses.txt"),
