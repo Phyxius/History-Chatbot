@@ -38,7 +38,7 @@ public class OutcomeBattle extends BasicResponder {
             char firstLetter = resultStr.get().toLowerCase().charAt(0);
             if (firstLetter == 'a' || firstLetter == 'e' || firstLetter == 'i' || firstLetter == 'o' || firstLetter == 'u')
                 aOrAn = "an";
-            return "The outcome of the " + searchStr + "was " + aOrAn + " " + resultStr + ".";
+            return "The outcome of the " + searchStr + "was " + aOrAn + " " + resultStr.get() + ".";
         } else {
             return super.respondTo(sentence);
         }
