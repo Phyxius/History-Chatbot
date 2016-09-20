@@ -67,16 +67,14 @@ public class Output {
 
     public static void printResponse(String responseStr)
     {
+        SleepUtil.interruptibleSleep(ThreadLocalRandom.current().nextInt(500, 1000));
         String[] finalResponse = response(responseStr);
 
         System.out.println(finalResponse[0].replaceAll("^ ",""));
 
-        if(finalResponse[1] != null)
-            try {
-                sleep(2500);
-                System.out.println(finalResponse[1] + "*");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if(finalResponse[1] != null) {
+            SleepUtil.interruptibleSleep(1500);
+            System.out.println(finalResponse[1] + "*");
+        }
     }
 }

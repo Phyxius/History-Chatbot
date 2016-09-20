@@ -39,9 +39,9 @@ public class Main {
         }
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to ChatRoom(TM).");
-        interruptibleSleep(500);
+        SleepUtil.interruptibleSleep(500);
         System.out.print("Now connecting you to your friend... ");
-        interruptibleSleep(500);
+        SleepUtil.interruptibleSleep(500);
         System.out.println("Done! Say 'hi'!");
         while (true)
         {
@@ -50,10 +50,4 @@ public class Main {
         }
     }
 
-    private static void interruptibleSleep(long millis)
-    {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException ignored) {}
-    }
 }
