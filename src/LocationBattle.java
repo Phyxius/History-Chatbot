@@ -1,3 +1,5 @@
+import java.util.Optional;
+
 /**
  * Created by Rob on 9/19/2016.
  */
@@ -10,7 +12,13 @@ public class LocationBattle extends BasicResponder{
     @Override
     public String respondTo(String sentence) {
         String searchStr = DeterminBattle.getBattleName(sentence);
-        String resultStr = WikiKnowledge.getBattleLocation(searchStr, KnowledgeChance.DEFAULT_CHANCE_OF_FAILURE).orElse(super.respondTo(sentence));
-        return resultStr;
+        Optional<String> resultStr = WikiKnowledge.getBattleLocation(searchStr, KnowledgeChance.DEFAULT_CHANCE_OF_FAILURE);
+
+        if(resultStr.isPresent()){
+            return "The " +searchStr + " took place in " + resultStr.get() + ".";
+        }else{
+            return super.respondTo(sentence);
+        }
+
     }
 }
