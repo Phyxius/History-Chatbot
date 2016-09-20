@@ -24,6 +24,7 @@ public class Main {
                 "destination.txt",
                 "favBattle.txt",
                 "favHistFigure.txt",
+                "favorite.txt",
                 "favoriteTime.txt",
                 "freeTime.txt",
                 "greetings.txt",
