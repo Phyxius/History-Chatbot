@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -47,11 +49,11 @@ public class BasicResponder implements Responder {
     @Override
     public double getResponseConfidence(String sentence) {
         double maxConfidence = Double.MIN_VALUE;
-        sentence = sentence.replaceAll("[.?]", "").toLowerCase(); //strip punctuation
+        sentence = sentence.toLowerCase().replaceAll("[.,?!]", "");
         for (List<String> keywordList : keywords) {
             int foundWords = 0;
             for (String keyword : keywordList) {
-                if (sentence.matches("\\b" + keyword + "\\b"))
+                if (sentence.matches(".*(\\s|^)" + keyword + "(\\s|$).*"))
                     foundWords++;
             }
             maxConfidence = Math.max(maxConfidence, (double) foundWords / keywordList.size());
