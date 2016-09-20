@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Rob on 9/19/2016.
  */
@@ -5,7 +8,7 @@ public class DeterminePerson {
 
     public static String getPerson(String sentence){
         String[] decompSent = sentence.split(" ");
-        String name = "";
+        List<String> name = new ArrayList<>();
         boolean partOfName = false;
 
         for(int i = 0; i < decompSent.length; i++){
@@ -17,10 +20,18 @@ public class DeterminePerson {
             }
 
             if(partOfName){
-                name +=  " " + decompSent[i];
+                name.add(decompSent[i]);
             }
 
         }
-        return name.replaceAll("^ ", "");
+
+
+        String ret = "";
+        for(String s: name){
+            s = s.substring(0,1).toUpperCase() + s.substring(1);
+            ret += " " + s;
+        }
+        return ret.replaceAll("^ ", "");
+
     }
 }
