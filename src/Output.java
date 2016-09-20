@@ -51,6 +51,13 @@ public class Output {
         return word.replaceAll("([\\w'!.\\-]+)([\\w'!.\\-])([\\w'!.\\-])", "$1$3$2");
     }
 
+    /**
+     * A function for printing the bot's responses to the screen. Has a
+     * chance to make a typo in the response that it will correct after
+     * a short time.
+     *
+     * @param responseStr   The response being given by the bot.
+     */
     public static void printResponse(String responseStr) {
         SleepUtil.interruptibleSleep(ThreadLocalRandom.current().nextInt(500, 1000));
         String[] finalResponse = response(responseStr);

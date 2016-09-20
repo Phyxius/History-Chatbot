@@ -3,6 +3,13 @@
  */
 public class DetermineBattle {
 
+    /**
+     * Function for extracting the name of  Battle from a sentence so it can be
+     * used in the wiki knowledge class.
+     *
+     * @param sentence  The question being asked.
+     * @return          The name of the battle in the question.
+     */
     public static String getBattleName(String sentence) {
         String battleName = "";
         String[] decompSent = sentence.split(" ");

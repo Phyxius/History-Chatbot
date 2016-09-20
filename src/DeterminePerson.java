@@ -6,6 +6,14 @@ import java.util.List;
  */
 public class DeterminePerson {
 
+    /**
+     * Function for extracting the name of a famous person from a sentence so
+     * it can be used in the wiki knowledge class.
+     *
+     * @param sentence  The question being asked.
+     * @return          The name of the person in the question.
+     */
+
     public static String getPerson(String sentence) {
         String[] decompSent = sentence.split(" ");
         List<String> name = new ArrayList<>();
@@ -18,13 +26,10 @@ public class DeterminePerson {
             } else if (decompSent[i].equalsIgnoreCase("born") || decompSent[i].equalsIgnoreCase("die")) {
                 break;
             }
-
             if (partOfName) {
                 name.add(decompSent[i]);
             }
-
         }
-
 
         String ret = "";
         for (String s : name) {
