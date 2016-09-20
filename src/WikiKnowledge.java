@@ -44,7 +44,8 @@ public class WikiKnowledge {
     /**
      * Attempts to calculate the number of people killed in a given battle,
      * based on its Wikipedia article
-     * @param battleName the name of the battle
+     *
+     * @param battleName         the name of the battle
      * @param chanceOfNotKnowing the chance of not knowing the answer
      * @return An Optional containing the approximate number of people killed
      * if it was able to discern the result, and the chance of not knowing did not trigger,
@@ -71,7 +72,8 @@ public class WikiKnowledge {
     /**
      * Attempts to extract the location of a given battle,
      * based on its Wikipedia article
-     * @param battleName the name of the battle
+     *
+     * @param battleName         the name of the battle
      * @param chanceOfNotKnowing the chance of not knowing the answer
      * @return An Optional containing the location of the battle
      * if it was able to discern the result, and the chance of not knowing did not trigger,
@@ -92,7 +94,8 @@ public class WikiKnowledge {
     /**
      * Attempts to extract the date of a battle,
      * based on its Wikipedia article
-     * @param battleName the name of the battle
+     *
+     * @param battleName         the name of the battle
      * @param chanceOfNotKnowing the chance of not knowing the answer
      * @return An Optional containing the approximate date
      * if it was able to discern the result, and the chance of not knowing did not trigger,
@@ -114,14 +117,14 @@ public class WikiKnowledge {
     /**
      * Attempts to extract the result of a battle,
      * based on its Wikipedia article
-     * @param battleName the name of the battle
+     *
+     * @param battleName         the name of the battle
      * @param chanceOfNotKnowing the chance of not knowing the answer
      * @return An Optional containing the result
      * if it was able to discern the result, and the chance of not knowing did not trigger,
      * or Optional.Empty otherwise
      */
-    public static Optional<String> getBattleResult(String battleName, int chanceOfNotKnowing)
-    {
+    public static Optional<String> getBattleResult(String battleName, int chanceOfNotKnowing) {
         if (chanceOfNotKnowing > 0 && !KnowledgeChance.doesKnowAbout(battleName, chanceOfNotKnowing))
             return Optional.empty();
         Optional<String> infoBoxText = extractBattleInfoBox(battleName).map(WikiKnowledge::stripMarkup);
@@ -134,60 +137,59 @@ public class WikiKnowledge {
 
     /**
      * Attempts to discern the birth date of a person, based on their Wikipedia article
-     * @param personName The name of the person
+     *
+     * @param personName         The name of the person
      * @param chanceOfNotKnowing the chance of not knowing
      * @return An Optional containing the date
      * if it was able to discern the result, and the chance of not knowing did not trigger,
      * or Optional.Empty otherwise
      */
-    public static Optional<String> getPersonBirthDate(String personName, int chanceOfNotKnowing)
-    {
+    public static Optional<String> getPersonBirthDate(String personName, int chanceOfNotKnowing) {
         return getPersonInfo(personName, chanceOfNotKnowing, PERSON_BIRTHDATE_PATTERN, PERSON_BIRTHDATE_GROUPS);
     }
 
     /**
      * Attempts to discern the death date of a person, based on their Wikipedia article
-     * @param personName The name of the person
+     *
+     * @param personName         The name of the person
      * @param chanceOfNotKnowing the chance of not knowing
      * @return An Optional containing the date
      * if it was able to discern the result, and the chance of not knowing did not trigger,
      * or Optional.Empty otherwise
      */
-    public static Optional<String> getPersonDeathDate(String personName, int chanceOfNotKnowing)
-    {
+    public static Optional<String> getPersonDeathDate(String personName, int chanceOfNotKnowing) {
         return getPersonInfo(personName, chanceOfNotKnowing, PERSON_DEATHHDATE_PATTERN, PERSON_DEATHDATE_GROUPS);
     }
 
     /**
      * Attempts to discern the birth place of a person, based on their Wikipedia article
-     * @param personName The name of the person
+     *
+     * @param personName         The name of the person
      * @param chanceOfNotKnowing the chance of not knowing
      * @return An Optional containing the place
      * if it was able to discern the result, and the chance of not knowing did not trigger,
      * or Optional.Empty otherwise
      */
-    public static Optional<String> getPersonBirthPlace(String personName, int chanceOfNotKnowing)
-    {
+    public static Optional<String> getPersonBirthPlace(String personName, int chanceOfNotKnowing) {
         return getPersonInfo(personName, chanceOfNotKnowing, PERSON_BIRTHPLACE_PATTERN, "birthplace")
                 .map(s -> roundPlaceName(s, PLACE_NAME_SPECIFICITY));
     }
 
     /**
      * Attempts to discern the death place of a person, based on their Wikipedia article
-     * @param personName The name of the person
+     *
+     * @param personName         The name of the person
      * @param chanceOfNotKnowing the chance of not knowing
      * @return An Optional containing the place
      * if it was able to discern the result, and the chance of not knowing did not trigger,
      * or Optional.Empty otherwise
      */
-    public static Optional<String> getPersonDeathPlace(String personName, int chanceOfNotKnowing)
-    {
+    public static Optional<String> getPersonDeathPlace(String personName, int chanceOfNotKnowing) {
         return getPersonInfo(personName, chanceOfNotKnowing, PERSON_DEATHPLACE_PATTERN, "deathplace")
                 .map(s -> roundPlaceName(s, PLACE_NAME_SPECIFICITY));
     }
 
-    private static Optional<String> getPersonInfo(String personName, int chanceOfNotKnowing, Pattern findPattern, String... findPatternGroups)
-    {
+    private static Optional<String> getPersonInfo(String personName, int chanceOfNotKnowing, Pattern findPattern, String... findPatternGroups) {
         if (chanceOfNotKnowing > 0 && !KnowledgeChance.doesKnowAbout(personName, chanceOfNotKnowing))
             return Optional.empty();
         Optional<String> infoBoxText = extractPersonInfoBox(personName).map(WikiKnowledge::stripMarkup);
@@ -211,20 +213,18 @@ public class WikiKnowledge {
         return extractInfoBox(battleName, BATTLE_INFO_BOX_FLAG_TEXT);
     }
 
-    private static Optional<String> extractPersonInfoBox(String personName)
-    {
+    private static Optional<String> extractPersonInfoBox(String personName) {
         return extractInfoBox(personName, PERSON_INFO_BOX_FLAG_TEXT);
     }
 
     /**
      * Attempts to extract the page infobox from the wiki page with the given name
      *
-     * @param pageName the name of the battle to try to extract
+     * @param pageName        the name of the battle to try to extract
      * @param infoBoxFlagText the text to look for that signals the beginning of an infobox
      * @return Optional.empty() if unsuccessful, otherwise an Optional containing the contents of the infobox
      */
-    private static Optional<String> extractInfoBox(String pageName, String infoBoxFlagText)
-    {
+    private static Optional<String> extractInfoBox(String pageName, String infoBoxFlagText) {
         String pageText;
         try {
             String[][] results;
@@ -260,19 +260,16 @@ public class WikiKnowledge {
                 new char[numberString.length() - 1]).replaceAll("\0", "0");
     }
 
-    public static String roundPlaceName(String placeName, int specificity)
-    {
+    public static String roundPlaceName(String placeName, int specificity) {
         String[] placeNames = placeName.split(", ");
         if (placeNames.length <= specificity) return placeName;
         String[] newPlaceNames = Arrays.copyOfRange(placeNames, placeNames.length - specificity, placeNames.length);
         return String.join(", ", (CharSequence[]) newPlaceNames);
     }
 
-    private static String stripMarkup(String text)
-    {
+    private static String stripMarkup(String text) {
         text = REF_STRIP_PATTERN.matcher(text).replaceAll("");
-        for(Pattern p: LINK_STRIP_PATTERNS)
-        {
+        for (Pattern p : LINK_STRIP_PATTERNS) {
             text = p.matcher(text).replaceAll("${text}");
         }
         text = COMMENT_STRIP_PATTERN.matcher(text).replaceAll("");

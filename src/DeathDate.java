@@ -1,5 +1,3 @@
-import org.wikipedia.Wiki;
-
 import java.util.Optional;
 
 /**
@@ -7,7 +5,7 @@ import java.util.Optional;
  */
 public class DeathDate extends BasicResponder {
 
-    public DeathDate(String pathToKeywords, String pathToDefault){
+    public DeathDate(String pathToKeywords, String pathToDefault) {
         super(pathToKeywords, pathToDefault);
     }
 
@@ -16,9 +14,9 @@ public class DeathDate extends BasicResponder {
         String searchName = DeterminePerson.getPerson(sentence);
         Optional<String> searchResult = WikiKnowledge.getPersonDeathDate(searchName, KnowledgeChance.DEFAULT_CHANCE_OF_FAILURE);
 
-        if(searchResult.isPresent()){
+        if (searchResult.isPresent()) {
             return searchName + " died in " + searchResult.get() + ".";
-        }else{
+        } else {
             return super.respondTo(sentence);
         }
 

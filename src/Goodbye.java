@@ -1,9 +1,8 @@
 /**
  * Created by Shea on 2016-09-19.
  */
-public class Goodbye extends BasicResponder{
-    public Goodbye()
-    {
+public class Goodbye extends BasicResponder {
+    public Goodbye() {
         super("goodbye.txt");
     }
 

@@ -5,7 +5,7 @@ import java.util.Optional;
  */
 public class OutcomeBattle extends BasicResponder {
 
-    public OutcomeBattle(String pathToKeywords, String pathToDefault){
+    public OutcomeBattle(String pathToKeywords, String pathToDefault) {
         super(pathToKeywords, pathToDefault);
     }
 
@@ -14,12 +14,13 @@ public class OutcomeBattle extends BasicResponder {
         String searchStr = DetermineBattle.getBattleName(sentence);
         Optional<String> resultStr = WikiKnowledge.getBattleResult(searchStr, KnowledgeChance.DEFAULT_CHANCE_OF_FAILURE);
 
-        if(resultStr.isPresent()) {
+        if (resultStr.isPresent()) {
             String aOrAn = "a";
             char firstLetter = resultStr.get().toLowerCase().charAt(0);
-            if (firstLetter == 'a' || firstLetter == 'e' || firstLetter == 'i' || firstLetter == 'o' || firstLetter == 'u') aOrAn = "an";
+            if (firstLetter == 'a' || firstLetter == 'e' || firstLetter == 'i' || firstLetter == 'o' || firstLetter == 'u')
+                aOrAn = "an";
             return "The outcome of the " + searchStr + "was " + aOrAn + " " + resultStr + ".";
-        }else{
+        } else {
             return super.respondTo(sentence);
         }
     }

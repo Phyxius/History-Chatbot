@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -35,8 +34,7 @@ public class BasicResponder implements Responder {
         }
     }
 
-    public BasicResponder(String pathSuffix)
-    {
+    public BasicResponder(String pathSuffix) {
         this(Paths.get("keywords/", pathSuffix).toString(),
                 Paths.get("responses/", pathSuffix).toString());
     }
@@ -48,14 +46,13 @@ public class BasicResponder implements Responder {
     @Override
     public double getResponseConfidence(String sentence) {
         double maxConfidence = Double.MIN_VALUE;
-        for (List<String> keywordList : keywords)
-        {
+        for (List<String> keywordList : keywords) {
             int foundWords = 0;
-            for (String keyword : keywordList)
-            {
-                if (sentence.toLowerCase().matches(".*(\\s|^)" + keyword + "(\\s|$).*")) foundWords++;
+            for (String keyword : keywordList) {
+                if (sentence.toLowerCase().matches(".*(\\s|^)" + keyword + "(\\s|$).*"))
+                    foundWords++;
             }
-            maxConfidence = Math.max(maxConfidence, (double)foundWords / keywordList.size());
+            maxConfidence = Math.max(maxConfidence, (double) foundWords / keywordList.size());
         }
         return maxConfidence * confidenceMultiplier;
     }

@@ -3,12 +3,12 @@
  */
 public class DetermineBattle {
 
-    public static String getBattleName(String sentence){
+    public static String getBattleName(String sentence) {
         String battleName = "";
         String[] decompSent = sentence.split(" ");
 
-        for(int i = 0; i < decompSent.length; i++) {
-            if(decompSent[i].equalsIgnoreCase("battle")) {
+        for (int i = 0; i < decompSent.length; i++) {
+            if (decompSent[i].equalsIgnoreCase("battle")) {
                 battleName += decompSent[i] + " " + decompSent[i + 1] + " " + decompSent[i + 2];
                 if ((i + 3) < decompSent.length) {
                     if (decompSent[i + 3].equalsIgnoreCase("take") || decompSent[i + 3].equalsIgnoreCase("happen")) {

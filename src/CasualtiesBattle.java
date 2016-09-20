@@ -5,7 +5,7 @@ import java.util.Optional;
  */
 public class CasualtiesBattle extends BasicResponder {
 
-    public CasualtiesBattle(String pathTokeywords, String pathToDefault){
+    public CasualtiesBattle(String pathTokeywords, String pathToDefault) {
         super(pathTokeywords, pathToDefault);
     }
 
@@ -14,9 +14,9 @@ public class CasualtiesBattle extends BasicResponder {
         String searchStr = DetermineBattle.getBattleName(sentence);
         Optional<String> resultStr = WikiKnowledge.getBattleCasualties(searchStr, KnowledgeChance.DEFAULT_CHANCE_OF_FAILURE);
 
-        if(resultStr.isPresent()){
+        if (resultStr.isPresent()) {
             return "The " + searchStr + " had " + resultStr.get() + " casualties.";
-        }else{
+        } else {
             return super.respondTo(sentence);
         }
 

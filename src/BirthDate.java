@@ -5,7 +5,7 @@ import java.util.Optional;
  */
 public class BirthDate extends BasicResponder {
 
-    public BirthDate(String pathToKeywords, String pathToDefault){
+    public BirthDate(String pathToKeywords, String pathToDefault) {
         super(pathToKeywords, pathToDefault);
     }
 
@@ -14,9 +14,9 @@ public class BirthDate extends BasicResponder {
         String searchName = DeterminePerson.getPerson(sentence);
         Optional<String> searchResult = WikiKnowledge.getPersonBirthDate(searchName, KnowledgeChance.DEFAULT_CHANCE_OF_FAILURE);
 
-        if(searchResult.isPresent()){
-            return searchName + " was born in " + searchResult.get()+ ".";
-        }else{
+        if (searchResult.isPresent()) {
+            return searchName + " was born in " + searchResult.get() + ".";
+        } else {
             return super.respondTo(sentence);
         }
     }

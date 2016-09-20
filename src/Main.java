@@ -5,8 +5,7 @@ import java.util.Scanner;
  */
 
 public class Main {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Chatbot chatbot = new Chatbot(new BasicResponder(null, "responses/subjectChange.txt"), .5,
                 new BirthDate("keywords/birthDate.txt", "responses/defaultResponses.txt"),
                 new BirthLocation("keywords/birthLocation.txt", "responses/defaultResponses.txt"),
@@ -44,8 +43,7 @@ public class Main {
         System.out.print("Now connecting you to your friend... ");
         SleepUtil.interruptibleSleep(500);
         System.out.println("Done! Say 'hi'!");
-        while (true)
-        {
+        while (true) {
             System.out.print("> ");
             Output.printResponse(chatbot.respondTo(scanner.nextLine()));
         }

@@ -5,7 +5,7 @@ import java.util.Optional;
  */
 public class WhenBattle extends BasicResponder {
 
-    public WhenBattle(String pathToKeywords, String pathToDefault){
+    public WhenBattle(String pathToKeywords, String pathToDefault) {
         super(pathToKeywords, pathToDefault);
     }
 
@@ -15,9 +15,9 @@ public class WhenBattle extends BasicResponder {
         String searchStr = DetermineBattle.getBattleName(sentence);
         Optional<String> returnString = WikiKnowledge.getBattleDate(searchStr, KnowledgeChance.DEFAULT_CHANCE_OF_FAILURE);
 
-        if(returnString.isPresent()){
+        if (returnString.isPresent()) {
             return "The " + searchStr + " took place in " + returnString.get() + ".";
-        }else{
+        } else {
             return super.respondTo(sentence);
         }
     }

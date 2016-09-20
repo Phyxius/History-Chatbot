@@ -5,7 +5,7 @@ import java.util.Optional;
  */
 public class DeathLocation extends BasicResponder {
 
-    public DeathLocation(String pathToKeywords, String pathToDefault){
+    public DeathLocation(String pathToKeywords, String pathToDefault) {
         super(pathToKeywords, pathToDefault);
     }
 
@@ -14,9 +14,9 @@ public class DeathLocation extends BasicResponder {
         String searchName = DeterminePerson.getPerson(sentence);
         Optional<String> searchResult = WikiKnowledge.getPersonDeathPlace(searchName, KnowledgeChance.DEFAULT_CHANCE_OF_FAILURE);
 
-        if(searchResult.isPresent()){
-            return searchName + " died in " + searchResult.get() +".";
-        }else{
+        if (searchResult.isPresent()) {
+            return searchName + " died in " + searchResult.get() + ".";
+        } else {
             return super.respondTo(sentence);
         }
     }

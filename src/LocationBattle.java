@@ -3,9 +3,9 @@ import java.util.Optional;
 /**
  * Created by Rob on 9/19/2016.
  */
-public class LocationBattle extends BasicResponder{
+public class LocationBattle extends BasicResponder {
 
-    public LocationBattle(String pathToKeywords, String pathToDefault){
+    public LocationBattle(String pathToKeywords, String pathToDefault) {
         super(pathToKeywords, pathToDefault);
     }
 
@@ -14,9 +14,9 @@ public class LocationBattle extends BasicResponder{
         String searchStr = DetermineBattle.getBattleName(sentence);
         Optional<String> resultStr = WikiKnowledge.getBattleLocation(searchStr, KnowledgeChance.DEFAULT_CHANCE_OF_FAILURE);
 
-        if(resultStr.isPresent()){
-            return "The " +searchStr + " took place in " + resultStr.get() + ".";
-        }else{
+        if (resultStr.isPresent()) {
+            return "The " + searchStr + " took place in " + resultStr.get() + ".";
+        } else {
             return super.respondTo(sentence);
         }
 
