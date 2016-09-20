@@ -10,7 +10,7 @@ public class DetermineBattle {
         for(int i = 0; i < decompSent.length; i++) {
             if(decompSent[i].equalsIgnoreCase("battle")) {
                 battleName += decompSent[i] + " " + decompSent[i+1] + " " + decompSent[i+2];
-                if(decompSent[i+3].equalsIgnoreCase("take") || decompSent[i+3].equalsIgnoreCase("happen")){
+                if((decompSent[i+3].equalsIgnoreCase("take") || decompSent[i+3].equalsIgnoreCase("happen")) && (i+3) < decompSent.length){
                     break;
                 }else{
                     battleName += " " + decompSent[i+3];
