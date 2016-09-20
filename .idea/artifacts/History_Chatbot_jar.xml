@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="History-Chatbot:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/History_Chatbot_jar</output-path>
+    <root id="archive" name="History-Chatbot.jar">
+      <element id="module-output" name="History-Chatbot" />
+    </root>
+  </artifact>
+</component>

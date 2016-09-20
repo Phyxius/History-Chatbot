@@ -1,10 +1,11 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.nio.file.*;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
@@ -35,12 +36,14 @@ public class BasicResponder implements Responder {
     }
 
     public BasicResponder(String pathSuffix) {
-        this(Paths.get("keywords/", pathSuffix).toString(),
-                Paths.get("responses/", pathSuffix).toString());
+        this("keywords/" + pathSuffix,
+                "responses/" + pathSuffix);
     }
 
     private static List<String> readLinesFromFile(String path) throws URISyntaxException, IOException {
-        return Files.readAllLines(Paths.get(Responder.class.getResource(path).toURI()));
+        InputStream in = BasicResponder.class.getResourceAsStream(path);
+        BufferedReader r = new BufferedReader(new InputStreamReader(in));
+        return r.lines().collect(Collectors.toList());
     }
 
     @Override
