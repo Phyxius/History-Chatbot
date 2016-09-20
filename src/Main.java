@@ -38,6 +38,7 @@ public class Main {
         for (String responsePath : responsePaths) {
             chatbot.responders.add(new BasicResponder(responsePath));
         }
+        if (args.length > 0 && args[0].equalsIgnoreCase("echo")) chatbot.echoSentences = true;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to ChatRoom(TM).");
         SleepUtil.interruptibleSleep(500);
