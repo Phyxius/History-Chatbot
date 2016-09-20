@@ -10,6 +10,7 @@ public class Chatbot implements Responder {
     public final List<Responder> responders;
     public final Responder defaultResponder;
     public final double confidenceThreshold;
+    public boolean echoSentences = false;
 
     /**
      * Constructs a new chatbot with the given parameters
@@ -38,6 +39,7 @@ public class Chatbot implements Responder {
 
     @Override
     public String respondTo(String sentence) {
+        if (echoSentences) System.out.println(sentence);
         String condensedSentence = sentence.replaceAll("\\s+", " ");
         return responders.parallelStream()
                 .max((r1, r2) -> Double.compare(r1.getResponseConfidence(condensedSentence), r2.getResponseConfidence(condensedSentence)))
