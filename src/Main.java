@@ -15,7 +15,8 @@ public class Main {
                 new DeathLocation("keywords/deathLocation.txt", "responses/defaultResponses.txt"),
                 new LocationBattle("keywords/locationBattle.txt", "responses/defaultResponses.txt"),
                 new OutcomeBattle("keywords/outcomeBattle.txt", "responses/defaultResponses.txt"),
-                new WhenBattle("keywords/whenBattle.txt", "responses/defaultResponses.txt"));
+                new WhenBattle("keywords/whenBattle.txt", "responses/defaultResponses.txt"),
+                new Goodbye());
         String[] responsePaths = {
                 "age.txt",
                 "appearance.txt",
