@@ -18,10 +18,10 @@ public class DetermineBattle {
             if (decompSent[i].equalsIgnoreCase("battle")) {
                 battleName += decompSent[i] + " " + decompSent[i + 1] + " " + decompSent[i + 2];
                 if ((i + 3) < decompSent.length) {
-                    if (decompSent[i + 3].equalsIgnoreCase("take") || decompSent[i + 3].equalsIgnoreCase("happen")) {
+                    if (decompSent[i + 3].replaceAll("([.?!])", "").equalsIgnoreCase("take") || decompSent[i + 3].replaceAll("([.?!])", "").equalsIgnoreCase("happen")) {
                         break;
                     } else {
-                        battleName += " " + decompSent[i + 3];
+                        battleName += " " + decompSent[i + 3].replaceAll("([.?!])", "");
                         break;
                     }
                 }

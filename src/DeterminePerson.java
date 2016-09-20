@@ -23,7 +23,7 @@ public class DeterminePerson {
             if (decompSent[i].equalsIgnoreCase("was") || decompSent[i].equalsIgnoreCase("did")) {
                 partOfName = true;
                 continue;
-            } else if (decompSent[i].equalsIgnoreCase("born") || decompSent[i].equalsIgnoreCase("die")) {
+            } else if (decompSent[i].replaceAll("([.?!])", "").equalsIgnoreCase("born") || decompSent[i].replaceAll("([.?!])", "").equalsIgnoreCase("die")) {
                 break;
             }
             if (partOfName) {

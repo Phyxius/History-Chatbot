@@ -10,7 +10,7 @@ public class Chatbot implements Responder {
     public final List<Responder> responders;
     public final Responder defaultResponder;
     public final double confidenceThreshold;
-    public boolean echoSentences = false;
+    public boolean echoSentences = true;
 
     /**
      * Constructs a new chatbot with the given parameters
