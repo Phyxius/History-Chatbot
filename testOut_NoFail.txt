@@ -1,0 +1,120 @@
+Example output from the chatbot. Spacing changed to make the file easier to read.
+
+Welcome to ChatRoom(TM).
+Now connecting you to your friend... Done! Say 'hi'!
+
+> Hello
+Why hello there.
+
+> Hi
+Hi.
+
+> Hello
+Hi.
+
+> What is your name
+Nice to meet you, my name is Rupert.
+
+> What is your name?
+Nice to meet you, my name is Rupert.
+
+> What do you look like.
+I am average build with red hair and greyish blue eyes.
+
+> How old are you?
+I'm old enough to be in college.
+
+> What do you do?
+I like to watch documentaries on history.
+
+> Do you have a job?
+No, I just go to school full time for now.
+
+> Where do you go to School?
+Just my locla community college.
+local*
+
+> What do you want to do with your degree?
+I'm not sure yet, that is too far into the future.
+
+> Do you have a favorite historical figure?
+Probably Michelangelo.
+
+> Where do you want to visit?
+I'd love to visit the Sistine Chapel one day.
+
+> What do you do in your freetime?
+I like to watch documentaries on history.
+
+> When was George Washington born?
+George Washington was born in 1732.
+
+> When did George Washington die?
+George Washington died in 1799.
+
+> Where was George Washinton born?
+George Washinton was born in Virginia, British America.
+
+> Where did George Washinton die?
+George Washinton died in Virginia, U.S..
+
+> When was Abraham lincoln born?
+Abraham Lincoln was born in 1809.
+
+> When did abraham lincoln die?
+Abraham Lincoln died in 1865.
+
+> Where was Abraham lincoln born?
+Abraham Lincoln was born in Kentucky, U.S..
+
+> Where did abraham Lincoln die?
+Abraham Lincoln died in D.C., U.S..
+
+> When was Mahatma Ghandhi born?
+Mahatma Ghandhi was born in 1869.
+
+> When did Mahatma Ghandhi die?
+Mahatma Ghandhi died in 1948.
+
+> When did Mahatma Ghandhi die?
+Mahatma Ghandhi died in 1948.
+
+> Where was Mahatma Ghandhi born?
+Mahatma Ghandhi was born in British Indian Empire(now in Gujarat, India).
+
+> Where did John Adams die?
+John Adams died in Massachusetts, United States.
+
+> when was the battle of okinawa?
+The battle of okinawa took place in April 1945.
+
+> Where was the battle of bunker hill?
+The battle of bunker hill took place in  Charlestown, Massachusetts.
+
+> Who won the battle of Okinawa?
+The outcome of the battle of Okinawawas an Allied victory.
+
+> How many casualties were there in the battle of ghettysburg?
+The battle of ghettysburg had 3000 casualties.
+
+> When was the battle of the bulge?
+The battle of the bulge took place in December 1944.
+
+> When was Ghenghis Kahn born?
+Ghenghis Kahn was born in 1162.
+
+> When was Bill Clinton Born?
+Bill Clinton was born in 1946.
+
+> When was I born?
+It's at the tip of my fingers but I can't make them type it...
+
+> When was Stan Lee born?
+Stan Lee was born in 1922.
+
+> When was Superman born?
+Man if this was a test, I would fail so hard...I'm drawing a blank.
+
+> goodbye
+It was a pleasure chattign with you, goodbye.
+chatting*
