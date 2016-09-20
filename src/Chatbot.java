@@ -30,19 +30,18 @@ public class Chatbot implements Responder{
 
     @Override
     public double getResponseConfidence(String sentence) {
-        sentence = sentence.replaceAll("\\s+", " ");
         return responders.parallelStream()
-                .map(r -> r.getResponseConfidence(sentence))
+                .map(r -> r.getResponseConfidence(sentence.replaceAll("\\s+", " ")))
                 .max(Comparator.naturalOrder())
                 .orElse(0.0);
     }
 
     @Override
     public String respondTo(String sentence) {
-        sentence = sentence.replaceAll("\\s+", " ");
+        String condensedSentence = sentence.replaceAll("\\s+", " ");
         return responders.parallelStream()
-                .max((r1, r2) -> Double.compare(r1.getResponseConfidence(sentence), r2.getResponseConfidence(sentence)))
-                .filter(r -> r.getResponseConfidence(sentence) > confidenceThreshold)
+                .max((r1, r2) -> Double.compare(r1.getResponseConfidence(condensedSentence), r2.getResponseConfidence(condensedSentence)))
+                .filter(r -> r.getResponseConfidence(condensedSentence) > confidenceThreshold)
                 .orElse(defaultResponder)
                 .respondTo(sentence);
     }
