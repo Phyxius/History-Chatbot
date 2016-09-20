@@ -1,3 +1,5 @@
+import java.util.Optional;
+
 /**
  * Created by Rob on 9/19/2016.
  */
@@ -10,7 +12,15 @@ public class OutcomeBattle extends BasicResponder {
     @Override
     public String respondTo(String sentence) {
         String searchStr = DeterminBattle.getBattleName(sentence);
-        String resultStr = WikiKnowledge.getBattleResult(searchStr, KnowledgeChance.DEFAULT_CHANCE_OF_FAILURE).orElse(super.respondTo(sentence));
-        return resultStr;
+        Optional<String> resultStr = WikiKnowledge.getBattleResult(searchStr, KnowledgeChance.DEFAULT_CHANCE_OF_FAILURE);
+
+        if(resultStr.isPresent()) {
+            String aOrAn = "a";
+            char firstLetter = resultStr.get().toLowerCase().charAt(0);
+            if (firstLetter == 'a' || firstLetter == 'e' || firstLetter == 'i' || firstLetter == 'o' || firstLetter == 'u') aOrAn = "an";
+            return "The outcome of the " + searchStr + "was " + aOrAn + " " + resultStr + ".";
+        }else{
+            return super.respondTo(sentence);
+        }
     }
 }
