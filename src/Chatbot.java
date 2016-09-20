@@ -30,6 +30,7 @@ public class Chatbot implements Responder{
 
     @Override
     public double getResponseConfidence(String sentence) {
+        sentence = sentence.replaceAll("\\s+", " ");
         return responders.parallelStream()
                 .map(r -> r.getResponseConfidence(sentence))
                 .max(Comparator.naturalOrder())
@@ -38,6 +39,7 @@ public class Chatbot implements Responder{
 
     @Override
     public String respondTo(String sentence) {
+        sentence = sentence.replaceAll("\\s+", " ");
         return responders.parallelStream()
                 .max((r1, r2) -> Double.compare(r1.getResponseConfidence(sentence), r2.getResponseConfidence(sentence)))
                 .filter(r -> r.getResponseConfidence(sentence) > confidenceThreshold)
