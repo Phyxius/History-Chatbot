@@ -20,8 +20,9 @@ public class BasicResponder implements Responder {
         keywords = new ArrayList<>();
         responses = new ArrayList<>();
         try {
-            if (pathToResponses != null) {
+            if (pathToKeywords != null) {
                 keywords.addAll(readLinesFromFile(pathToKeywords).stream()
+                        .map(String::toLowerCase)
                         .map(s -> s.split(" "))
                         .map(Arrays::asList)
                         .collect(Collectors.toList()));
@@ -51,7 +52,7 @@ public class BasicResponder implements Responder {
             int foundWords = 0;
             for (String keyword : keywordList)
             {
-                if (keyword.matches(".*(\\s|^)" + keyword + "(\\s|$).*")) foundWords++;
+                if (sentence.toLowerCase().matches(".*(\\s|^)" + keyword + "(\\s|$).*")) foundWords++;
             }
             maxConfidence = Math.max(maxConfidence, (double)foundWords / keywordList.size());
         }

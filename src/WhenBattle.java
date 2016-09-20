@@ -12,7 +12,7 @@ public class WhenBattle extends BasicResponder {
     @Override
     public String respondTo(String sentence) {
 
-        String searchStr = DeterminBattle.getBattleName(sentence);
+        String searchStr = DetermineBattle.getBattleName(sentence);
         Optional<String> returnString = WikiKnowledge.getBattleDate(searchStr, KnowledgeChance.DEFAULT_CHANCE_OF_FAILURE);
 
         if(returnString.isPresent()){
