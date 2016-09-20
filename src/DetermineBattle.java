@@ -1,7 +1,7 @@
 /**
  * Created by Rob on 9/19/2016.
  */
-public class DeterminBattle {
+public class DetermineBattle {
 
     public static String getBattleName(String sentence){
         String battleName = "";
