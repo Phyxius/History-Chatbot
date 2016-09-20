@@ -231,7 +231,7 @@ public class WikiKnowledge {
             results = wiki.search(pageName, Wiki.MAIN_NAMESPACE);
             if (results.length < 1) return Optional.empty();
             pageText = wiki.getPageText(results[0][0]);
-        } catch (IOException e) {
+        } catch (IOException | UnknownError e) {
             return Optional.empty();
         }
         if (!pageText.contains(infoBoxFlagText)) return Optional.empty();
