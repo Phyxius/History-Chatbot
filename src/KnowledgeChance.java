@@ -4,7 +4,7 @@ import java.util.zip.CRC32;
  * Created by Shea on 2016-09-17.
  */
 public class KnowledgeChance {
-    public static final int DEFAULT_CHANCE_OF_FAILURE = 0;
+    public static final int DEFAULT_CHANCE_OF_FAILURE = 5;
 
     /**
      * Determines (by pseudorandom chance) whether or not the chatbot should know
