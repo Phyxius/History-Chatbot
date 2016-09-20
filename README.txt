@@ -3,7 +3,7 @@ By Robert Spidle and Shea Polansky
 
 How to run: run the included .jar file in the terminal. Add the command line argument "echo" to force it to echo all inputs; this is useful for capturing output in a text file.
     -To reproduce the testing results, use "java -jar History-Chatbot.jar echo < testinput.txt > testoutput.txt"
-        -Note: results may differ if the Wikipedia articles change
+        -Note: results may differ if the Wikipedia articles change, as well as due to the randomness inherent in the stochastic responses.
 How to build: open the included IntelliJ project and build it, or manually build the .java files and copy the contents of the "language" folder into the same directory as the resulting .class files
 
 Design notes:
