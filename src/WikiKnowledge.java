@@ -41,6 +41,15 @@ public class WikiKnowledge {
         wiki.setLogLevel(Level.OFF);
     }
 
+    /**
+     * Attempts to calculate the number of people killed in a given battle,
+     * based on its Wikipedia article
+     * @param battleName the name of the battle
+     * @param chanceOfNotKnowing the chance of not knowing the answer
+     * @return An Optional containing the approximate number of people killed
+     * if it was able to discern the result, and the chance of not knowing did not trigger,
+     * or Optional.Empty otherwise
+     */
     public static Optional<String> getBattleCasualties(String battleName, int chanceOfNotKnowing) {
         if (chanceOfNotKnowing > 0 && !KnowledgeChance.doesKnowAbout(battleName, chanceOfNotKnowing))
             return Optional.empty();
@@ -59,6 +68,15 @@ public class WikiKnowledge {
         return Optional.of(roundNumberString("" + totalKilled));
     }
 
+    /**
+     * Attempts to extract the location of a given battle,
+     * based on its Wikipedia article
+     * @param battleName the name of the battle
+     * @param chanceOfNotKnowing the chance of not knowing the answer
+     * @return An Optional containing the location of the battle
+     * if it was able to discern the result, and the chance of not knowing did not trigger,
+     * or Optional.Empty otherwise
+     */
     public static Optional<String> getBattleLocation(String battleName, int chanceOfNotKnowing) {
         if (chanceOfNotKnowing > 0 && !KnowledgeChance.doesKnowAbout(battleName, chanceOfNotKnowing))
             return Optional.empty();
@@ -71,6 +89,15 @@ public class WikiKnowledge {
         return Optional.of(location);
     }
 
+    /**
+     * Attempts to extract the date of a battle,
+     * based on its Wikipedia article
+     * @param battleName the name of the battle
+     * @param chanceOfNotKnowing the chance of not knowing the answer
+     * @return An Optional containing the approximate date
+     * if it was able to discern the result, and the chance of not knowing did not trigger,
+     * or Optional.Empty otherwise
+     */
     public static Optional<String> getBattleDate(String battleName, int chanceOfNotKnowing) {
         if (chanceOfNotKnowing > 0 && !KnowledgeChance.doesKnowAbout(battleName, chanceOfNotKnowing))
             return Optional.empty();
@@ -84,35 +111,75 @@ public class WikiKnowledge {
                 matcher.group("month") + " " : "") + matcher.group("year"));
     }
 
+    /**
+     * Attempts to extract the result of a battle,
+     * based on its Wikipedia article
+     * @param battleName the name of the battle
+     * @param chanceOfNotKnowing the chance of not knowing the answer
+     * @return An Optional containing the result
+     * if it was able to discern the result, and the chance of not knowing did not trigger,
+     * or Optional.Empty otherwise
+     */
     public static Optional<String> getBattleResult(String battleName, int chanceOfNotKnowing)
     {
         if (chanceOfNotKnowing > 0 && !KnowledgeChance.doesKnowAbout(battleName, chanceOfNotKnowing))
             return Optional.empty();
         Optional<String> infoBoxText = extractBattleInfoBox(battleName).map(WikiKnowledge::stripMarkup);
         if (!infoBoxText.isPresent()) return Optional.empty();
-        //strip refs and links
         Matcher matcher = BATTLE_RESULT_PATTERN.matcher(infoBoxText.get());
         if (!matcher.find())
             return Optional.empty();
         return Optional.of(matcher.group("result"));
     }
 
+    /**
+     * Attempts to discern the birth date of a person, based on their Wikipedia article
+     * @param personName The name of the person
+     * @param chanceOfNotKnowing the chance of not knowing
+     * @return An Optional containing the date
+     * if it was able to discern the result, and the chance of not knowing did not trigger,
+     * or Optional.Empty otherwise
+     */
     public static Optional<String> getPersonBirthDate(String personName, int chanceOfNotKnowing)
     {
         return getPersonInfo(personName, chanceOfNotKnowing, PERSON_BIRTHDATE_PATTERN, PERSON_BIRTHDATE_GROUPS);
     }
 
+    /**
+     * Attempts to discern the death date of a person, based on their Wikipedia article
+     * @param personName The name of the person
+     * @param chanceOfNotKnowing the chance of not knowing
+     * @return An Optional containing the date
+     * if it was able to discern the result, and the chance of not knowing did not trigger,
+     * or Optional.Empty otherwise
+     */
     public static Optional<String> getPersonDeathDate(String personName, int chanceOfNotKnowing)
     {
         return getPersonInfo(personName, chanceOfNotKnowing, PERSON_DEATHHDATE_PATTERN, PERSON_DEATHDATE_GROUPS);
     }
 
+    /**
+     * Attempts to discern the birth place of a person, based on their Wikipedia article
+     * @param personName The name of the person
+     * @param chanceOfNotKnowing the chance of not knowing
+     * @return An Optional containing the place
+     * if it was able to discern the result, and the chance of not knowing did not trigger,
+     * or Optional.Empty otherwise
+     */
     public static Optional<String> getPersonBirthPlace(String personName, int chanceOfNotKnowing)
     {
         return getPersonInfo(personName, chanceOfNotKnowing, PERSON_BIRTHPLACE_PATTERN, "birthplace")
                 .map(s -> roundPlaceName(s, PLACE_NAME_SPECIFICITY));
     }
 
+    /**
+     * Attempts to discern the death place of a person, based on their Wikipedia article
+     * @param personName The name of the person
+     * @param chanceOfNotKnowing the chance of not knowing
+     * @return An Optional containing the place
+     * if it was able to discern the result, and the chance of not knowing did not trigger,
+     * or Optional.Empty otherwise
+     */
     public static Optional<String> getPersonDeathPlace(String personName, int chanceOfNotKnowing)
     {
         return getPersonInfo(personName, chanceOfNotKnowing, PERSON_DEATHPLACE_PATTERN, "deathplace")

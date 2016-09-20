@@ -35,7 +35,8 @@ public class BasicResponder implements Responder {
 
     public BasicResponder(String pathSuffix)
     {
-        this("keywords/" + pathSuffix, "responses/" + pathSuffix);
+        this(Paths.get("keywords/", pathSuffix).toString(),
+                Paths.get("responses/", pathSuffix).toString());
     }
 
     private static List<String> readLinesFromFile(String path) throws URISyntaxException, IOException {

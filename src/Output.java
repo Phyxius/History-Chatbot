@@ -79,10 +79,4 @@ public class Output {
                 e.printStackTrace();
             }
     }
-
-    public static void main(String[] args)
-    {
-        printResponse("The quick brown fox jumped over the fence 1000 times.");
-    }
-
 }
