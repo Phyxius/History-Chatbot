@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class BasicResponder implements Responder {
     protected final List<List<String>> keywords;
     protected final List<String> responses;
+    public double confidenceMultiplier = 1.0;
 
     public BasicResponder(String pathToKeywords, String pathToResponses) {
         keywords = new ArrayList<>();
@@ -56,7 +57,7 @@ public class BasicResponder implements Responder {
             }
             maxConfidence = Math.max(maxConfidence, (double)foundWords / keywordList.size());
         }
-        return maxConfidence;
+        return maxConfidence * confidenceMultiplier;
     }
 
     @Override
